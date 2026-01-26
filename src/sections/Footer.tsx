@@ -42,7 +42,11 @@ const footerLinks: FooterSection[] = [
   }
 ]
 
+import { useGithubStats } from '@/hooks/use-github-stats'
+
 export function Footer() {
+  const { stars, totalReleases, contributors, language } = useGithubStats()
+
   return (
     <footer className="border-t border-border/50 bg-background/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -58,16 +62,16 @@ export function Footer() {
               </span>
             </div>
             <p className="text-sm text-muted-foreground mb-4">
-              A powerful Terminal User Interface for Proxmox Virtual Environment. 
+              A powerful Terminal User Interface for Proxmox Virtual Environment.
               Manage your infrastructure from the comfort of your terminal.
             </p>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <span>Made with</span>
               <Heart className="w-4 h-4 text-red-500 fill-red-500" />
               <span>by</span>
-              <a 
-                href="https://github.com/devnullvoid" 
-                target="_blank" 
+              <a
+                href="https://github.com/devnullvoid"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:underline"
               >
@@ -75,7 +79,7 @@ export function Footer() {
               </a>
             </div>
           </div>
-          
+
           {/* Links */}
           {footerLinks.map((section, index) => (
             <div key={index}>
@@ -98,27 +102,27 @@ export function Footer() {
             </div>
           ))}
         </div>
-        
+
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 py-8 border-y border-border/50">
           <div className="text-center">
-            <div className="text-2xl font-bold text-primary">549</div>
+            <div className="text-2xl font-bold text-primary">{stars}</div>
             <div className="text-xs text-muted-foreground">GitHub Stars</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-cyan-400">31</div>
+            <div className="text-2xl font-bold text-cyan-400">{totalReleases}</div>
             <div className="text-xs text-muted-foreground">Releases</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-green-400">6</div>
+            <div className="text-2xl font-bold text-green-400">{contributors}</div>
             <div className="text-xs text-muted-foreground">Contributors</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-purple-400">Go</div>
+            <div className="text-2xl font-bold text-purple-400">{language}</div>
             <div className="text-xs text-muted-foreground">Primary Language</div>
           </div>
         </div>
-        
+
         {/* CTA */}
         <div className="text-center mb-12">
           <h3 className="text-lg font-semibold mb-4">Enjoying pvetui?</h3>
@@ -172,7 +176,7 @@ export function Footer() {
             </Button>
           </div>
         </div>
-        
+
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-border/50">
           <div className="flex items-center gap-4">
@@ -191,7 +195,7 @@ export function Footer() {
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
               </svg>
             </a>
           </div>

@@ -5,7 +5,11 @@ import { Features } from '@/sections/Features'
 import { Installation } from '@/sections/Installation'
 import { Screenshots } from '@/sections/Screenshots'
 
+import { useGithubStats } from '@/hooks/use-github-stats'
+
 export function Home() {
+  const { version } = useGithubStats()
+
   return (
     <>
       {/* Hero Section */}
@@ -24,7 +28,7 @@ export function Home() {
             className="mb-6 border-primary/30 text-primary bg-primary/5 px-3 py-1"
           >
             <Zap className="w-3 h-3 mr-1" />
-            v1.0.16 - Lightning Fast
+            {version} - Lightning Fast
           </Badge>
 
           {/* Main Title */}

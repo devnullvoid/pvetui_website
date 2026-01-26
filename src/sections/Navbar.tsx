@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react'
 import { useLocation, Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 
+import { useGithubStats } from '@/hooks/use-github-stats'
+
 interface NavbarProps {
   activeSection?: string
 }
@@ -23,10 +25,11 @@ const docsNavItems = [
 ]
 
 export function Navbar({ activeSection }: NavbarProps) {
+  const { stars } = useGithubStats()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const location = useLocation()
   const isHomePage = location.pathname === '/'
-  
+
   // Reset scroll when navigating to docs page
   useEffect(() => {
     if (location.pathname === '/docs') {
@@ -55,22 +58,20 @@ export function Navbar({ activeSection }: NavbarProps) {
               <a
                 key={item.id}
                 href={item.href}
-                className={`px-3 py-2 text-sm font-medium rounded-md transition-all ${
-                  activeSection === item.id
-                    ? 'text-primary bg-primary/10'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
-                }`}
+                className={`px-3 py-2 text-sm font-medium rounded-md transition-all ${activeSection === item.id
+                  ? 'text-primary bg-primary/10'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+                  }`}
               >
                 {item.label}
               </a>
             ))}
             <Link
               to={isHomePage ? "/docs" : "/"}
-              className={`px-3 py-2 text-sm font-medium rounded-md transition-all ${
-                (isHomePage && location.pathname === '/docs') || (!isHomePage && location.pathname === '/')
-                  ? 'text-primary bg-primary/10'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
-              }`}
+              className={`px-3 py-2 text-sm font-medium rounded-md transition-all ${(isHomePage && location.pathname === '/docs') || (!isHomePage && location.pathname === '/')
+                ? 'text-primary bg-primary/10'
+                : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+                }`}
             >
               {isHomePage ? (
                 <>
@@ -102,7 +103,7 @@ export function Navbar({ activeSection }: NavbarProps) {
               >
                 <Github className="w-4 h-4" />
                 <span>GitHub</span>
-                <span className="text-xs text-muted-foreground">549 ★</span>
+                <span className="text-xs text-muted-foreground">{stars} ★</span>
               </a>
             </Button>
           </div>
@@ -125,11 +126,10 @@ export function Navbar({ activeSection }: NavbarProps) {
                   key={item.id}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`px-3 py-2 text-sm font-medium rounded-md transition-all ${
-                    activeSection === item.id
-                      ? 'text-primary bg-primary/10'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
-                  }`}
+                  className={`px-3 py-2 text-sm font-medium rounded-md transition-all ${activeSection === item.id
+                    ? 'text-primary bg-primary/10'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+                    }`}
                 >
                   {item.label}
                 </a>
@@ -137,11 +137,10 @@ export function Navbar({ activeSection }: NavbarProps) {
               <Link
                 to={isHomePage ? "/docs" : "/"}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`px-3 py-2 text-sm font-medium rounded-md transition-all ${
-                  (isHomePage && location.pathname === '/docs') || (!isHomePage && location.pathname === '/')
-                    ? 'text-primary bg-primary/10'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
-                }`}
+                className={`px-3 py-2 text-sm font-medium rounded-md transition-all ${(isHomePage && location.pathname === '/docs') || (!isHomePage && location.pathname === '/')
+                  ? 'text-primary bg-primary/10'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+                  }`}
               >
                 {isHomePage ? (
                   <>
