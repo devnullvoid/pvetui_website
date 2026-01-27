@@ -1,73 +1,101 @@
-# React + TypeScript + Vite
+# PVETUI Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + TypeScript + Vite web application with shadcn/ui components.
 
-Currently, two official plugins are available:
+## Development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Prerequisites
+- Node.js 20+
+- npm
 
-## React Compiler
+### Local Development
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+# Install dependencies
+npm install
 
-## Expanding the ESLint configuration
+# Start development server
+npm run dev
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+# Build for production
+npm run build
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# Preview production build locally
+npm run preview
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Run linter
+npm run lint
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Docker Deployment
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Option 1: Production (Recommended)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Rebuild required on code changes. This is the standard, production-safe approach.
+
+```bash
+# Build and start
+docker-compose up -d --build
+
+# View logs
+docker-compose logs -f
+
+# Stop
+docker-compose down
 ```
+
+### Option 2: Development with Hot Reload
+
+No rebuilds needed. Changes reflect instantly via volume mounting.
+
+```bash
+# Start dev container with hot reload
+docker-compose -f docker-compose.dev.yml up -d
+
+# Make changes to source code - they auto-reload
+```
+
+### Option 3: Build Externally + Mount Dist
+
+Build locally, mount pre-built `dist/` folder. Faster than full rebuilds.
+
+```bash
+# Build locally
+npm run build
+
+# Start with mounted dist
+docker-compose -f docker-compose.mounted.yml up -d
+
+# To update: rebuild locally and restart container
+npm run build
+docker-compose -f docker-compose.mounted.yml restart
+```
+
+### Reverse Proxy Configuration
+
+The application runs on port 3000 inside the container. Example nginx configuration:
+
+```nginx
+location / {
+    proxy_pass http://localhost:3000;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+```
+
+### ARM64 Support
+
+The Dockerfile uses multi-platform compatible base images (node:20-alpine) and will work on ARM64 servers natively.
+
+### Viewing Logs with Dozzle
+
+Logs are written to stdout/stderr, making them visible in Dozzle and other log aggregation tools.
+
+## Project Structure
+
+- `src/` - Application source code
+- `dist/` - Built static assets (generated)
+- `public/` - Public static files
+- `components.json` - shadcn/ui configuration
