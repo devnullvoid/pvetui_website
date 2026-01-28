@@ -4,6 +4,10 @@
       <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
       <stop offset="100%" style="stop-color:#2563eb;stop-opacity:1" />
     </linearGradient>
+    <linearGradient id="orange" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f97316;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ea580c;stop-opacity:1" />
+    </linearGradient>
   </defs>
 
   <!-- Background rounded rectangle -->
@@ -17,13 +21,15 @@
   <circle cx="120" cy="88" r="12" fill="#f59e0b" />
   <circle cx="168" cy="88" r="12" fill="#22c55e" />
 
-  <!-- Terminal prompt character -->
-  <path d="M 88 180 L 144 224 L 88 268" stroke="url(#bg)" stroke-width="20" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  <!-- Terminal prompt character (orange) -->
+  <path d="M 88 180 L 144 224 L 88 268" stroke="url(#orange)" stroke-width="20" fill="none" stroke-linecap="round" stroke-linejoin="round" />
 
-  <!-- Terminal line after prompt -->
-  <line x1="168" y1="268" x2="272" y2="268" stroke="url(#bg)" stroke-width="20" stroke-linecap="round" />
+  <!-- pvetui text (orange pve, white tui, monospace, on same line as prompt) -->
+  <text x="176" y="242" font-family="monospace" font-size="56" font-weight="bold">
+    <tspan fill="#f97316">pve</tspan><tspan fill="#ffffff">tui</tspan>
+  </text>
 
-  <!-- Terminal text lines -->
+  <!-- Terminal line (gray) -->
   <line x1="88" y1="328" x2="400" y2="328" stroke="#64748b" stroke-width="16" stroke-linecap="round" />
   <line x1="88" y1="376" x2="320" y2="376" stroke="#64748b" stroke-width="16" stroke-linecap="round" />
 </svg>
