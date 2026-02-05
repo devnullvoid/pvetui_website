@@ -19,6 +19,12 @@ const keyBindings = [
   { key: 'Ctrl+C', action: 'Cancel/Exit', category: 'System' },
 ]
 
+const groupedBindings = {
+  Navigation: keyBindings.filter(k => k.category === 'Navigation'),
+  Actions: keyBindings.filter(k => k.category === 'Actions'),
+  System: keyBindings.filter(k => k.category === 'System'),
+}
+
 const commandLineFlags = [
   { flag: '--config, -c', description: 'Path to YAML config file', example: 'pvetui --config ~/my-config.yml' },
   { flag: '--profile, -p', description: 'Connection profile to use', example: 'pvetui --profile work' },
@@ -95,8 +101,7 @@ export function Usage() {
                   <h3 className="text-lg font-semibold">Navigation</h3>
                 </div>
                 <div className="space-y-3">
-                  {keyBindings
-                    .filter(k => k.category === 'Navigation')
+                  {groupedBindings.Navigation
                     .map((binding, index) => (
                       <div key={index} className="flex items-center justify-between py-2 border-b border-border/50">
                         <kbd className="font-mono text-sm text-foreground">{binding.key}</kbd>
@@ -113,8 +118,7 @@ export function Usage() {
                   <h3 className="text-lg font-semibold">Actions</h3>
                 </div>
                 <div className="space-y-3">
-                  {keyBindings
-                    .filter(k => k.category === 'Actions')
+                  {groupedBindings.Actions
                     .map((binding, index) => (
                       <div key={index} className="flex items-center justify-between py-2 border-b border-border/50">
                         <kbd className="font-mono text-sm text-foreground">{binding.key}</kbd>
@@ -128,8 +132,7 @@ export function Usage() {
                   <h3 className="text-lg font-semibold">System</h3>
                 </div>
                 <div className="space-y-3">
-                  {keyBindings
-                    .filter(k => k.category === 'System')
+                  {groupedBindings.System
                     .map((binding, index) => (
                       <div key={index} className="flex items-center justify-between py-2 border-b border-border/50">
                         <kbd className="font-mono text-sm text-foreground">{binding.key}</kbd>
