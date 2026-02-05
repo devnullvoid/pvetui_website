@@ -17,7 +17,6 @@ const homeNavItems = [
 ]
 
 const docsNavItems = [
-  { id: 'home', label: 'Home', href: '/' },
   { id: 'config', label: 'Config', href: '/docs#config' },
   { id: 'usage', label: 'Usage', href: '/docs#usage' },
   { id: 'theming', label: 'Themes', href: '/docs#theming' },
@@ -54,6 +53,15 @@ export function Navbar({ activeSection }: NavbarProps) {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1">
+            {!isHomePage && (
+              <Link
+                to="/"
+                className="px-3 py-2 text-sm font-medium rounded-md transition-all text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+              >
+                <Home className="w-4 h-4 mr-1 inline" />
+                Home
+              </Link>
+            )}
             {navItems.map((item) => (
               <a
                 key={item.id}
@@ -66,25 +74,15 @@ export function Navbar({ activeSection }: NavbarProps) {
                 {item.label}
               </a>
             ))}
-            <Link
-              to={isHomePage ? "/docs" : "/"}
-              className={`px-3 py-2 text-sm font-medium rounded-md transition-all ${(isHomePage && location.pathname === '/docs') || (!isHomePage && location.pathname === '/')
-                ? 'text-primary bg-primary/10'
-                : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
-                }`}
-            >
-              {isHomePage ? (
-                <>
-                  <BookOpen className="w-4 h-4 mr-1 inline" />
-                  Documentation
-                </>
-              ) : (
-                <>
-                  <Home className="w-4 h-4 mr-1 inline" />
-                  Home
-                </>
-              )}
-            </Link>
+            {isHomePage && (
+              <Link
+                to="/docs"
+                className="px-3 py-2 text-sm font-medium rounded-md transition-all text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+              >
+                <BookOpen className="w-4 h-4 mr-1 inline" />
+                Documentation
+              </Link>
+            )}
           </div>
 
           {/* GitHub Button */}
@@ -121,6 +119,16 @@ export function Navbar({ activeSection }: NavbarProps) {
         {mobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-border">
             <div className="flex flex-col gap-2">
+              {!isHomePage && (
+                <Link
+                  to="/"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="px-3 py-2 text-sm font-medium rounded-md transition-all text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                >
+                  <Home className="w-4 h-4 mr-1 inline" />
+                  Home
+                </Link>
+              )}
               {navItems.map((item) => (
                 <a
                   key={item.id}
@@ -134,26 +142,16 @@ export function Navbar({ activeSection }: NavbarProps) {
                   {item.label}
                 </a>
               ))}
-              <Link
-                to={isHomePage ? "/docs" : "/"}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`px-3 py-2 text-sm font-medium rounded-md transition-all ${(isHomePage && location.pathname === '/docs') || (!isHomePage && location.pathname === '/')
-                  ? 'text-primary bg-primary/10'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
-                  }`}
-              >
-                {isHomePage ? (
-                  <>
-                    <BookOpen className="w-4 h-4 mr-1 inline" />
-                    Documentation
-                  </>
-                ) : (
-                  <>
-                    <Home className="w-4 h-4 mr-1 inline" />
-                    Home
-                  </>
-                )}
-              </Link>
+              {isHomePage && (
+                <Link
+                  to="/docs"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="px-3 py-2 text-sm font-medium rounded-md transition-all text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                >
+                  <BookOpen className="w-4 h-4 mr-1 inline" />
+                  Documentation
+                </Link>
+              )}
               <Button
                 variant="outline"
                 size="sm"

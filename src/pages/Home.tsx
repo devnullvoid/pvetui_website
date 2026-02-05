@@ -6,12 +6,18 @@ import { Installation } from '@/sections/Installation'
 import { Screenshots } from '@/sections/Screenshots'
 
 import { useGithubStats } from '@/hooks/use-github-stats'
+import { SEO } from '@/components/SEO'
 
 export function Home() {
   const { version } = useGithubStats()
 
   return (
     <>
+      <SEO
+        title="Terminal UI for Proxmox VE"
+        description="Manage your Proxmox VE cluster from the comfort of your terminal. Complete VM, container, and node management with Vim-style navigation."
+        path="/"
+      />
       {/* Hero Section */}
       <section id="hero" className="relative min-h-screen flex justify-center overflow-hidden pt-32">
         {/* Background Grid */}
