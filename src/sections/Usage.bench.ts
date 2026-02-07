@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { bench, describe } from 'vitest';
 
 const keyBindings = [

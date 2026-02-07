@@ -3,7 +3,7 @@ import { describe, it, expect, vi, beforeEach, afterEach, type Mock } from 'vite
 import { useGithubStats } from './use-github-stats';
 
 // Mock fetch globally
-global.fetch = vi.fn();
+globalThis.fetch = vi.fn();
 
 const mockRepoResponse = {
     stargazers_count: 100,
@@ -31,7 +31,7 @@ describe('useGithubStats Performance Optimization', () => {
         localStorage.clear();
         vi.useFakeTimers({ toFake: ['Date'] });
 
-        (global.fetch as Mock).mockImplementation((url: unknown) => {
+        (globalThis.fetch as Mock).mockImplementation((url: unknown) => {
             if (typeof url === 'string') {
                 if (url.includes('/repos/devnullvoid/pvetui/releases/latest')) {
                     return Promise.resolve(createFetchResponse(mockReleaseResponse));
@@ -60,7 +60,7 @@ describe('useGithubStats Performance Optimization', () => {
         await waitFor(() => expect(result.current.loading).toBe(false));
 
         // Expect 4 fetch calls
-        expect(global.fetch).toHaveBeenCalledTimes(4);
+        expect(globalThis.fetch).toHaveBeenCalledTimes(4);
 
         // Verify data is correct
         expect(result.current.stars).toBe(100);
@@ -70,7 +70,7 @@ describe('useGithubStats Performance Optimization', () => {
         // First mount to populate cache
         const { result, unmount } = renderHook(() => useGithubStats());
         await waitFor(() => expect(result.current.loading).toBe(false));
-        expect(global.fetch).toHaveBeenCalledTimes(4);
+        expect(globalThis.fetch).toHaveBeenCalledTimes(4);
 
         // Clear mocks to reset call count
         vi.clearAllMocks();
@@ -81,7 +81,7 @@ describe('useGithubStats Performance Optimization', () => {
         await waitFor(() => expect(result2.current.loading).toBe(false));
 
         // Expect 0 fetch calls because cache is fresh
-        expect(global.fetch).toHaveBeenCalledTimes(0);
+        expect(globalThis.fetch).toHaveBeenCalledTimes(0);
         expect(result2.current.stars).toBe(100);
     });
 
@@ -102,7 +102,7 @@ describe('useGithubStats Performance Optimization', () => {
         await waitFor(() => expect(result2.current.loading).toBe(false));
 
         // Expect 4 fetch calls because cache expired
-        expect(global.fetch).toHaveBeenCalledTimes(4);
+        expect(globalThis.fetch).toHaveBeenCalledTimes(4);
     });
 
     it('falls back to stale cache on network error', async () => {
@@ -118,14 +118,14 @@ describe('useGithubStats Performance Optimization', () => {
         vi.setSystemTime(newTime);
 
         // Mock network failure for the next attempt
-        (global.fetch as Mock).mockImplementation(() => Promise.resolve(createFetchResponse({}, false)));
+        (globalThis.fetch as Mock).mockImplementation(() => Promise.resolve(createFetchResponse({}, false)));
 
         // Second mount
         const { result: result2 } = renderHook(() => useGithubStats());
         await waitFor(() => expect(result2.current.loading).toBe(false));
 
         // Expect fetch was attempted (4 times)
-        expect(global.fetch).toHaveBeenCalledTimes(4);
+        expect(globalThis.fetch).toHaveBeenCalledTimes(4);
 
         // But we should still have data from the stale cache, not an error
         expect(result2.current.error).toBe(false);
