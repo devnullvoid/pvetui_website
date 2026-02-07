@@ -78,6 +78,7 @@ export function Screenshots() {
               <img
                 src={screenshots[activeIndex].image}
                 alt={screenshots[activeIndex].title}
+                loading="lazy"
                 className="w-full h-auto transition-transform group-hover:scale-[1.02]"
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
@@ -118,6 +119,7 @@ export function Screenshots() {
               <img
                 src={screenshot.image}
                 alt={screenshot.title}
+                loading="lazy"
                 className="w-full h-full object-cover"
               />
             </button>
@@ -158,6 +160,7 @@ export function Screenshots() {
               <img
                 src="/demo.gif"
                 alt="pvetui demo"
+                loading="lazy"
                 className="w-full h-auto rounded-b-lg"
               />
             </div>
