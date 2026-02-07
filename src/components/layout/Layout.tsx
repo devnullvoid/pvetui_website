@@ -14,26 +14,53 @@ export function Layout() {
   }, [location.pathname])
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (location.pathname !== '/') return
-      
-      const sections = ['hero', 'features', 'installation', 'screenshots']
-      const scrollPosition = window.scrollY + 100
+    if (location.pathname !== '/') return
 
-      for (const section of sections) {
-        const element = document.getElementById(section)
-        if (element) {
-          const { offsetTop, offsetHeight } = element
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section)
-            break
-          }
+    let observer: IntersectionObserver | null = null
+
+    const createObserver = () => {
+      if (observer) observer.disconnect()
+
+      const height = window.innerHeight
+      // Create a 1px intersection line at 100px from the top
+      // Top margin: -100px (moves top edge down to 100px)
+      // Bottom margin: -(height - 101)px (moves bottom edge up to 101px)
+      // This results in an intersection rect of [100, 101] relative to viewport top
+      const bottomMargin = -(height - 101)
+      const rootMargin = `-100px 0px ${bottomMargin}px 0px`
+
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActiveSection(entry.target.id)
+            }
+          })
+        },
+        {
+          rootMargin,
+          threshold: 0,
         }
-      }
+      )
+
+      const sections = ['hero', 'features', 'installation', 'screenshots']
+      sections.forEach((section) => {
+        const element = document.getElementById(section)
+        if (element) observer?.observe(element)
+      })
     }
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    createObserver()
+
+    const handleResize = () => {
+      createObserver()
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => {
+      if (observer) observer.disconnect()
+      window.removeEventListener('resize', handleResize)
+    }
   }, [location.pathname])
 
   return (
