@@ -20,6 +20,9 @@ const DEFAULT_STATS: GithubStats = {
     error: false,
 }
 
+const CACHE_KEY = 'pvetui_github_stats'
+const CACHE_TTL = 3600 * 1000 // 1 hour
+
 function parseLinkHeader(header: string | null): number | null {
     if (!header) return null
 
@@ -41,6 +44,22 @@ export function useGithubStats(): GithubStats {
 
     useEffect(() => {
         const fetchStats = async () => {
+            let cachedData: { timestamp: number; data: GithubStats } | null = null
+
+            try {
+                const stored = localStorage.getItem(CACHE_KEY)
+                if (stored) {
+                    cachedData = JSON.parse(stored)
+                    // If cache is fresh, use it and return
+                    if (cachedData && Date.now() - cachedData.timestamp < CACHE_TTL) {
+                        setStats(cachedData.data)
+                        return
+                    }
+                }
+            } catch (e) {
+                console.warn('Failed to parse cached stats', e)
+            }
+
             try {
                 const headers = { Accept: 'application/vnd.github.v3+json' }
 
@@ -85,7 +104,7 @@ export function useGithubStats(): GithubStats {
                     if (Array.isArray(data)) totalReleases = data.length
                 }
 
-                setStats({
+                const newStats = {
                     stars: repoData.stargazers_count,
                     version,
                     totalReleases,
@@ -93,11 +112,25 @@ export function useGithubStats(): GithubStats {
                     language: repoData.language || DEFAULT_STATS.language,
                     loading: false,
                     error: false,
-                })
+                }
+
+                setStats(newStats)
+
+                // Update cache
+                localStorage.setItem(CACHE_KEY, JSON.stringify({
+                    timestamp: Date.now(),
+                    data: newStats
+                }))
+
             } catch (error) {
                 console.error('Error fetching GitHub stats:', error)
-                // We don't read from 'stats' here anymore
-                setStats(prev => ({ ...prev, loading: false, error: true }))
+
+                // Fallback to stale cache if available
+                if (cachedData) {
+                    setStats(cachedData.data)
+                } else {
+                    setStats(prev => ({ ...prev, loading: false, error: true }))
+                }
             }
         }
 
