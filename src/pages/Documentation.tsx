@@ -6,10 +6,16 @@ import { Theming } from '@/sections/Theming'
 import { Plugins } from '@/sections/Plugins'
 import { Link } from 'react-router-dom'
 import { BackToTop } from '@/components/BackToTop'
+import { SEO } from '@/components/SEO'
 
 export function Documentation() {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <SEO
+        title="Documentation"
+        description="Comprehensive documentation for pvetui. Learn how to install, configure, and use the terminal interface for Proxmox VE."
+        path="/docs"
+      />
       {/* Header */}
       <div className="mb-12">
         <Button
