@@ -72,7 +72,7 @@ export function Usage() {
         
         {/* Usage Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="flex flex-wrap justify-center gap-2 mb-8 bg-transparent">
+          <TabsList className="mx-auto flex flex-wrap justify-center gap-2 mb-8 bg-transparent">
             <TabsTrigger value="keys" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <Keyboard className="w-4 h-4 mr-2" />
               Key Bindings
