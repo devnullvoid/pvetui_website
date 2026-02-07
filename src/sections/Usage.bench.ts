@@ -30,11 +30,17 @@ describe('Usage Component Filtering Logic', () => {
     const _nav = keyBindings.filter(k => k.category === 'Navigation');
     const _act = keyBindings.filter(k => k.category === 'Actions');
     const _sys = keyBindings.filter(k => k.category === 'System');
+    void _nav;
+    void _act;
+    void _sys;
   });
 
   bench('Proposed: Pre-grouped access', () => {
     const _nav = preGrouped.Navigation;
     const _act = preGrouped.Actions;
     const _sys = preGrouped.System;
+    void _nav;
+    void _act;
+    void _sys;
   });
 });
