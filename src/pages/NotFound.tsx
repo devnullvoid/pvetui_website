@@ -9,6 +9,7 @@ export function NotFound() {
       <SEO
         title="404 Not Found"
         description="The page you are looking for does not exist."
+        noIndex
       />
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background Grid */}
