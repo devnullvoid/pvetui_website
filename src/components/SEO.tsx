@@ -9,7 +9,7 @@ interface SEOProps {
 }
 
 const DOMAIN = import.meta.env.VITE_CANONICAL_URL || 'https://pvetui.org'
-const OG_IMAGE = import.meta.env.VITE_OG_IMAGE || '/proxmox-tui-gopher-logo.png'
+const OG_IMAGE = import.meta.env.VITE_OG_IMAGE || '/social-card.png'
 
 export function SEO({ title, description, path = '', type = 'website', noIndex = false }: SEOProps) {
   const baseUrl = DOMAIN.replace(/\/+$/, '')
