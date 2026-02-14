@@ -22,9 +22,9 @@ const plugins = [
     bgColor: 'bg-cyan-400/10'
   },
   {
-    id: 'demo-guest-list',
+    id: 'guest-insights',
     name: 'Guest Insights',
-    description: 'Enhanced guest management with full guest insights modal. Features advanced filtering, sorting, and quick jump-to-guest functionality.',
+    description: 'Enhanced guest management with full guest insights modal. Features advanced filtering, sorting, and quick jump-to-guest functionality. (Legacy alias: demo-guest-list)',
     icon: Settings,
     category: 'Management',
     enabledByDefault: false,
@@ -138,7 +138,7 @@ export function Plugins() {
   enabled:
     - "community-scripts"
     - "command-runner"
-    - "demo-guest-list"`}</code>
+    - "guest-insights"`}</code>
                 </pre>
               </div>
             </div>

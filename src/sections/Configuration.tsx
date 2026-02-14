@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Settings, Shield, Terminal, Key, RefreshCw, FileText, Lock, Server } from 'lucide-react'
+import { Settings, Shield, Terminal, Key, RefreshCw, FileText, Lock, Server, Cpu } from 'lucide-react'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
@@ -17,6 +17,11 @@ const configExample = `profiles:
     insecure: false
     ssh_user: "your-ssh-user"
     vm_ssh_user: "vm-login-user"      # Optional override for VM shells
+    ssh_jump_host:                    # Optional bastion host
+      addr: "jump.example.com"
+      user: "jumpuser"
+      keyfile: "/path/to/jump.key"
+      port: 2222
     groups:
       - all-servers
   
@@ -33,7 +38,8 @@ const configExample = `profiles:
       - all-servers
 
 default_profile: "all-servers"         # Can be profile or group name
-debug: false`
+debug: false
+show_icons: true                       # Toggle icons/emojis in UI`
 
 const sopsExample = `profiles:
   default:
@@ -48,7 +54,7 @@ const pluginsExample = `plugins:
   enabled:
     - "community-scripts"    # Community Scripts installer
     - "command-runner"       # Execute whitelisted commands
-    - "demo-guest-list"      # Guest Insights (filter/sort/jump)`
+    - "guest-insights"       # Guest Insights (filter/sort/jump)`
 
 const groupExample = `profiles:
   home-server:
@@ -113,6 +119,10 @@ export function Configuration() {
             <TabsTrigger value="groups" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <RefreshCw className="w-4 h-4 mr-2" />
               Group Mode
+            </TabsTrigger>
+            <TabsTrigger value="advanced" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+              <Cpu className="w-4 h-4 mr-2" />
+              Advanced
             </TabsTrigger>
           </TabsList>
           
@@ -321,7 +331,7 @@ export function Configuration() {
                     <span className="block text-xs">Execute whitelisted commands via SSH (requires SSH keys)</span>
                   </li>
                   <li>
-                    <span className="text-cyan-400 font-mono">demo-guest-list</span>
+                    <span className="text-cyan-400 font-mono">guest-insights</span>
                     <span className="block text-xs">Full guest insights modal (filter/sort/jump-to-guest)</span>
                   </li>
                 </ul>
@@ -397,6 +407,55 @@ export function Configuration() {
                 <p className="text-sm text-muted-foreground mt-4">
                   Launch directly into a group: <span className="text-cyan-400 font-mono">pvetui --profile="my-group"</span>
                 </p>
+              </div>
+            </div>
+          </TabsContent>
+
+          {/* Advanced Tab */}
+          <TabsContent value="advanced">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="feature-card">
+                <div className="flex items-center gap-3 mb-4">
+                  <Cpu className="w-6 h-6 text-orange-400" />
+                  <h3 className="text-xl font-semibold">Hardware Monitoring</h3>
+                </div>
+                <p className="text-muted-foreground mb-4">
+                  Enhanced monitoring capabilities for Proxmox nodes:
+                </p>
+                <ul className="text-sm text-muted-foreground space-y-3">
+                  <li>
+                    <span className="text-foreground font-semibold">Disk SMART Info</span>
+                    <span className="block text-xs mt-1">View health status, model, type (SSD/HDD), and SMART data for all attached disks directly in the Node Details panel.</span>
+                  </li>
+                  <li>
+                    <span className="text-foreground font-semibold">System Updates</span>
+                    <span className="block text-xs mt-1">See pending system package updates with version details. Helpful for keeping nodes secure and up-to-date.</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="feature-card">
+                <div className="flex items-center gap-3 mb-4">
+                  <Settings className="w-6 h-6 text-blue-400" />
+                  <h3 className="text-xl font-semibold">Advanced Config</h3>
+                </div>
+                <ul className="text-sm text-muted-foreground space-y-3">
+                  <li>
+                    <span className="text-foreground font-semibold">SSH Jump Host</span>
+                    <span className="block text-xs mt-1">Route connections through a bastion host. Configure via <span className="text-cyan-400">ssh_jump_host</span> block in config or CLI flags.</span>
+                  </li>
+                  <li>
+                    <span className="text-foreground font-semibold">Guest Tags</span>
+                    <span className="block text-xs mt-1">Edit tags in the VM/LXC configuration form. Use semicolon-separated format (e.g., <span className="font-mono">prod;db;backup</span>).</span>
+                  </li>
+                  <li>
+                    <span className="text-foreground font-semibold">Icon Toggle</span>
+                    <span className="block text-xs mt-1">Disable UI icons with <span className="text-cyan-400">show_icons: false</span> or <span className="text-cyan-400">--show-icons=false</span> if your font doesn't support them.</span>
+                  </li>
+                  <li>
+                    <span className="text-foreground font-semibold">Age Key Directory</span>
+                    <span className="block text-xs mt-1">Override encryption key location with <span className="text-cyan-400">age_dir</span> config or <span className="text-cyan-400">--age-dir</span> flag.</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </TabsContent>
