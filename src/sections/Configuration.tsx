@@ -106,7 +106,7 @@ export function Configuration() {
             </TabsTrigger>
             <TabsTrigger value="auth" className="flex-none data-[state=active]:bg-primary data-[state=active]:text-primary-foreground px-3">
               <Shield className="w-4 h-4 mr-2" />
-              Authentication
+              Auth
             </TabsTrigger>
             <TabsTrigger value="encryption" className="flex-none data-[state=active]:bg-primary data-[state=active]:text-primary-foreground px-3">
               <Lock className="w-4 h-4 mr-2" />
