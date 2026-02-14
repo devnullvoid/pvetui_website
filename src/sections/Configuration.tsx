@@ -95,32 +95,32 @@ export function Configuration() {
         
         {/* Configuration Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="w-full justify-start overflow-x-auto flex-nowrap mb-8 bg-transparent">
-            <TabsTrigger value="wizard" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+          <TabsList className="mx-auto flex flex-wrap justify-center gap-1 mb-8 bg-transparent h-auto">
+            <TabsTrigger value="wizard" className="flex-none data-[state=active]:bg-primary data-[state=active]:text-primary-foreground px-3">
               <Terminal className="w-4 h-4 mr-2" />
               Config Wizard
             </TabsTrigger>
-            <TabsTrigger value="profiles" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+            <TabsTrigger value="profiles" className="flex-none data-[state=active]:bg-primary data-[state=active]:text-primary-foreground px-3">
               <Server className="w-4 h-4 mr-2" />
               Profiles
             </TabsTrigger>
-            <TabsTrigger value="auth" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+            <TabsTrigger value="auth" className="flex-none data-[state=active]:bg-primary data-[state=active]:text-primary-foreground px-3">
               <Shield className="w-4 h-4 mr-2" />
               Authentication
             </TabsTrigger>
-            <TabsTrigger value="encryption" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+            <TabsTrigger value="encryption" className="flex-none data-[state=active]:bg-primary data-[state=active]:text-primary-foreground px-3">
               <Lock className="w-4 h-4 mr-2" />
               Encryption
             </TabsTrigger>
-            <TabsTrigger value="plugins" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+            <TabsTrigger value="plugins" className="flex-none data-[state=active]:bg-primary data-[state=active]:text-primary-foreground px-3">
               <Settings className="w-4 h-4 mr-2" />
               Plugins
             </TabsTrigger>
-            <TabsTrigger value="groups" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+            <TabsTrigger value="groups" className="flex-none data-[state=active]:bg-primary data-[state=active]:text-primary-foreground px-3">
               <RefreshCw className="w-4 h-4 mr-2" />
               Group Mode
             </TabsTrigger>
-            <TabsTrigger value="advanced" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+            <TabsTrigger value="advanced" className="flex-none data-[state=active]:bg-primary data-[state=active]:text-primary-foreground px-3">
               <Cpu className="w-4 h-4 mr-2" />
               Advanced
             </TabsTrigger>
