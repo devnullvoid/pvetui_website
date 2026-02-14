@@ -98,7 +98,7 @@ export function Configuration() {
           <TabsList className="mx-auto flex flex-wrap justify-center gap-1 mb-8 bg-transparent h-auto">
             <TabsTrigger value="wizard" className="flex-none data-[state=active]:bg-primary data-[state=active]:text-primary-foreground px-3">
               <Terminal className="w-4 h-4 mr-2" />
-              Config Wizard
+              Wizard
             </TabsTrigger>
             <TabsTrigger value="profiles" className="flex-none data-[state=active]:bg-primary data-[state=active]:text-primary-foreground px-3">
               <Server className="w-4 h-4 mr-2" />
@@ -413,49 +413,48 @@ export function Configuration() {
 
           {/* Advanced Tab */}
           <TabsContent value="advanced">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="space-y-8">
               <div className="feature-card">
-                <div className="flex items-center gap-3 mb-4">
-                  <Cpu className="w-6 h-6 text-orange-400" />
-                  <h3 className="text-xl font-semibold">Hardware Monitoring</h3>
-                </div>
-                <p className="text-muted-foreground mb-4">
-                  Enhanced monitoring capabilities for Proxmox nodes:
-                </p>
-                <ul className="text-sm text-muted-foreground space-y-3">
-                  <li>
-                    <span className="text-foreground font-semibold">Disk SMART Info</span>
-                    <span className="block text-xs mt-1">View health status, model, type (SSD/HDD), and SMART data for all attached disks directly in the Node Details panel.</span>
-                  </li>
-                  <li>
-                    <span className="text-foreground font-semibold">System Updates</span>
-                    <span className="block text-xs mt-1">See pending system package updates with version details. Helpful for keeping nodes secure and up-to-date.</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="feature-card">
-                <div className="flex items-center gap-3 mb-4">
+                <div className="flex items-center gap-3 mb-6">
                   <Settings className="w-6 h-6 text-blue-400" />
                   <h3 className="text-xl font-semibold">Advanced Config</h3>
                 </div>
-                <ul className="text-sm text-muted-foreground space-y-3">
+                <ul className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-muted-foreground">
                   <li>
-                    <span className="text-foreground font-semibold">SSH Jump Host</span>
-                    <span className="block text-xs mt-1">Route connections through a bastion host. Configure via <span className="text-cyan-400">ssh_jump_host</span> block in config or CLI flags.</span>
+                    <span className="text-foreground font-semibold block mb-2">SSH Jump Host</span>
+                    <span className="block text-xs leading-relaxed">Route connections through a bastion host. Configure via <span className="text-cyan-400">ssh_jump_host</span> block in config or CLI flags.</span>
                   </li>
                   <li>
-                    <span className="text-foreground font-semibold">Guest Tags</span>
-                    <span className="block text-xs mt-1">Edit tags in the VM/LXC configuration form. Use semicolon-separated format (e.g., <span className="font-mono">prod;db;backup</span>).</span>
+                    <span className="text-foreground font-semibold block mb-2">Icon Toggle</span>
+                    <span className="block text-xs leading-relaxed">Disable UI icons with <span className="text-cyan-400">show_icons: false</span> or <span className="text-cyan-400">--show-icons=false</span> if your font doesn't support them.</span>
                   </li>
                   <li>
-                    <span className="text-foreground font-semibold">Icon Toggle</span>
-                    <span className="block text-xs mt-1">Disable UI icons with <span className="text-cyan-400">show_icons: false</span> or <span className="text-cyan-400">--show-icons=false</span> if your font doesn't support them.</span>
-                  </li>
-                  <li>
-                    <span className="text-foreground font-semibold">Age Key Directory</span>
-                    <span className="block text-xs mt-1">Override encryption key location with <span className="text-cyan-400">age_dir</span> config or <span className="text-cyan-400">--age-dir</span> flag.</span>
+                    <span className="text-foreground font-semibold block mb-2">Age Key Directory</span>
+                    <span className="block text-xs leading-relaxed">Override encryption key location with <span className="text-cyan-400">age_dir</span> config or <span className="text-cyan-400">--age-dir</span> flag.</span>
                   </li>
                 </ul>
+              </div>
+              
+              <div className="feature-card">
+                <div className="flex items-center gap-3 mb-4">
+                  <FileText className="w-6 h-6 text-orange-400" />
+                  <h3 className="text-xl font-semibold">Full Configuration Example</h3>
+                </div>
+                <div className="relative">
+                  <pre className="code-block text-xs overflow-x-auto">
+                    <code>{configExample}</code>
+                  </pre>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => copyToClipboard(configExample)}
+                    className="absolute top-2 right-2"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                  </Button>
+                </div>
               </div>
             </div>
           </TabsContent>
