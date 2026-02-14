@@ -41,6 +41,26 @@ default_profile: "all-servers"         # Can be profile or group name
 debug: false
 show_icons: true                       # Toggle icons/emojis in UI`
 
+const profilesExample = `profiles:
+  # Home Lab (Default)
+  default:
+    addr: "https://192.168.1.10:8006"
+    user: "root"
+    realm: "pam"
+    token_id: "pvetui"
+    token_secret: "secret..."
+    ssh_user: "root"
+
+  # Work Cluster
+  work:
+    addr: "https://pve.work.com:8006"
+    user: "jon"
+    realm: "pve"
+    password: "password..."
+    ssh_user: "jon"
+
+default_profile: "default"`
+
 const sopsExample = `profiles:
   default:
     addr: "https://your-proxmox-host:8006"
@@ -188,27 +208,50 @@ export function Configuration() {
           
           {/* Profiles Tab */}
           <TabsContent value="profiles">
-            <div className="terminal-window">
-              <div className="terminal-header">
-                <div className="flex gap-2">
-                  <div className="terminal-dot bg-red-500" />
-                  <div className="terminal-dot bg-yellow-500" />
-                  <div className="terminal-dot bg-green-500" />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="feature-card">
+                <div className="flex items-center gap-3 mb-4">
+                  <Server className="w-6 h-6 text-primary" />
+                  <h3 className="text-xl font-semibold">Multi-Profile Support</h3>
                 </div>
-                <span className="text-xs text-muted-foreground ml-4">config.yml - Multi-Profile Configuration</span>
-              </div>
-              <div className="terminal-content">
                 <p className="text-muted-foreground mb-4">
-                  Modern multi-profile format supporting multiple Proxmox connections:
+                  Manage multiple Proxmox environments from a single configuration file. 
+                  Switch between them instantly without re-authenticating.
                 </p>
+                <ul className="text-sm text-muted-foreground space-y-3">
+                  <li>
+                    <span className="text-foreground font-semibold">Seamless Switching</span>
+                    <span className="block text-xs mt-1">
+                      Launch with <span className="text-cyan-400 font-mono">pvetui --profile work</span> or switch inside the TUI.
+                    </span>
+                  </li>
+                  <li>
+                    <span className="text-foreground font-semibold">Per-Profile Auth</span>
+                    <span className="block text-xs mt-1">
+                      Each profile has its own authentication method (API Token or Password) and SSH user.
+                    </span>
+                  </li>
+                  <li>
+                    <span className="text-foreground font-semibold">Default Profile</span>
+                    <span className="block text-xs mt-1">
+                      Set a <span className="text-cyan-400 font-mono">default_profile</span> to load automatically when no flags are provided.
+                    </span>
+                  </li>
+                </ul>
+              </div>
+              <div className="feature-card">
+                <div className="flex items-center gap-3 mb-4">
+                  <FileText className="w-6 h-6 text-green-400" />
+                  <h3 className="text-xl font-semibold">Profile Configuration</h3>
+                </div>
                 <div className="relative">
                   <pre className="code-block text-xs">
-                    <code>{configExample}</code>
+                    <code>{profilesExample}</code>
                   </pre>
                   <Button
                     size="sm"
                     variant="ghost"
-                    onClick={() => copyToClipboard(configExample)}
+                    onClick={() => copyToClipboard(profilesExample)}
                     className="absolute top-2 right-2"
                   >
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
