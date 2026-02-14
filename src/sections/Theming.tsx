@@ -18,28 +18,46 @@ const themes = [
     description: 'Arctic-inspired color palette'
   },
   {
-    name: 'Solarized Dark',
+    name: 'Solarized',
     type: 'Dark',
     colors: ['#002b36', '#073642', '#839496', '#586e75', '#859900', '#b58900', '#dc322f', '#268bd2'],
     description: 'Precision colors for machines and people'
   },
   {
-    name: 'Gruvbox Dark',
+    name: 'Gruvbox',
     type: 'Dark',
     colors: ['#282828', '#3c3836', '#ebdbb2', '#7c6f64', '#b8bb26', '#fabd2f', '#fb4934', '#83a598'],
     description: 'Retro groove color scheme'
   },
   {
-    name: 'One Dark',
+    name: 'Catppuccin Mocha',
     type: 'Dark',
-    colors: ['#282c34', '#3e4451', '#abb2bf', '#5c6370', '#98c379', '#e5c07b', '#e06c75', '#61afef'],
-    description: 'Atom editor default theme'
+    colors: ['#1e1e2e', '#313244', '#cdd6f4', '#bac2de', '#a6e3a1', '#f9e2af', '#f38ba8', '#89b4fa'],
+    description: 'Soothing pastel theme'
   },
   {
-    name: 'Solarized Light',
-    type: 'Light',
-    colors: ['#fdf6e3', '#eee8d5', '#657b83', '#93a1a1', '#859900', '#b58900', '#dc322f', '#268bd2'],
-    description: 'Light variant of precision colors'
+    name: 'Rose Pine',
+    type: 'Dark',
+    colors: ['#191724', '#26233a', '#e0def4', '#908caa', '#9ccfd8', '#f6c177', '#eb6f92', '#31748f'],
+    description: 'Minimalistic and elegant'
+  },
+  {
+    name: 'Tokyo Night',
+    type: 'Dark',
+    colors: ['#1a1b26', '#24283b', '#c0caf5', '#a9b1d6', '#9ece6a', '#e0af68', '#f7768e', '#7aa2f7'],
+    description: 'Clean dark theme'
+  },
+  {
+    name: 'Kanagawa',
+    type: 'Dark',
+    colors: ['#1f1f28', '#2a2a37', '#dcd7ba', '#a6a69c', '#98bb6c', '#ffa066', '#e46876', '#7fb4ca'],
+    description: 'Inspired by Japanese art'
+  },
+  {
+    name: 'Everforest',
+    type: 'Dark',
+    colors: ['#2b3339', '#4f5b58', '#d3c6aa', '#a7c080', '#a7c080', '#dbbc7f', '#e67e80', '#7fbbb3'],
+    description: 'Nature-focused color scheme'
   }
 ]
 

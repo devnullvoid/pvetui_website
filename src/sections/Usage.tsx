@@ -39,6 +39,15 @@ const commandLineFlags = [
   { flag: '--realm', description: 'Proxmox realm', example: 'pvetui --realm pam' },
   { flag: '--insecure', description: 'Skip TLS verification', example: 'pvetui --insecure' },
   { flag: '--ssh-user', description: 'SSH username', example: 'pvetui --ssh-user admin' },
+  { flag: '--vm-ssh-user', description: 'QEMU VM SSH username', example: 'pvetui --vm-ssh-user user' },
+  { flag: '--ssh-jumphost-addr', description: 'SSH jump host address', example: 'pvetui --ssh-jumphost-addr jump.example.com' },
+  { flag: '--ssh-jumphost-user', description: 'SSH jump host user', example: 'pvetui --ssh-jumphost-user jumpuser' },
+  { flag: '--ssh-jumphost-keyfile', description: 'SSH jump host identity file', example: 'pvetui --ssh-jumphost-keyfile ~/.ssh/id_rsa' },
+  { flag: '--ssh-jumphost-port', description: 'SSH jump host port', example: 'pvetui --ssh-jumphost-port 2222' },
+  { flag: '--api-path', description: 'Proxmox API path', example: 'pvetui --api-path /api2/json' },
+  { flag: '--cache-dir', description: 'Custom cache directory', example: 'pvetui --cache-dir /tmp/cache' },
+  { flag: '--age-dir', description: 'Custom age key directory', example: 'pvetui --age-dir ~/.config/pvetui' },
+  { flag: '--show-icons', description: 'Toggle icons/emojis', example: 'pvetui --show-icons=false' },
   { flag: '--debug', description: 'Enable debug logging', example: 'pvetui --debug' },
 ]
 
