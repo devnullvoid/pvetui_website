@@ -28,6 +28,7 @@ const groupedBindings = {
 const commandLineFlags = [
   { flag: '--config, -c', description: 'Path to YAML config file', example: 'pvetui --config ~/my-config.yml' },
   { flag: '--profile, -p', description: 'Connection profile to use', example: 'pvetui --profile work' },
+  { flag: '--list-profiles', description: 'List available profiles', example: 'pvetui --list-profiles' },
   { flag: '--no-cache, -n', description: 'Disable caching', example: 'pvetui --no-cache' },
   { flag: '--version, -v', description: 'Show version information', example: 'pvetui --version' },
   { flag: '--config-wizard, -w', description: 'Launch config wizard', example: 'pvetui --config-wizard' },

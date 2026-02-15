@@ -10,7 +10,10 @@ import {
   Globe,
   RefreshCw,
   Key,
-  Search
+  Search,
+  Activity,
+  HardDrive,
+  Network
 } from 'lucide-react'
 
 const features = [
@@ -20,6 +23,13 @@ const features = [
     description: 'Intelligent caching and optimized API calls ensure responsive performance even with large clusters.',
     color: 'text-yellow-400',
     bgColor: 'bg-yellow-400/10'
+  },
+  {
+    icon: Activity,
+    title: 'Async Task Queue',
+    description: 'Non-blocking operations with background processing. Queue multiple actions without UI freezes.',
+    color: 'text-emerald-400',
+    bgColor: 'bg-emerald-400/10'
   },
   {
     icon: Server,
@@ -36,6 +46,13 @@ const features = [
     bgColor: 'bg-cyan-400/10'
   },
   {
+    icon: Network,
+    title: 'SSH Jump Host',
+    description: 'Securely access private Proxmox clusters through a bastion host with native jump host support.',
+    color: 'text-sky-400',
+    bgColor: 'bg-sky-400/10'
+  },
+  {
     icon: RefreshCw,
     title: 'Automatic Migration',
     description: 'Legacy configs automatically migrate to the modern profile-based format. Zero configuration headaches.',
@@ -48,6 +65,13 @@ const features = [
     description: 'API tokens or password-based auth with automatic renewal. Built-in support for encrypted configurations with SOPS.',
     color: 'text-green-400',
     bgColor: 'bg-green-400/10'
+  },
+  {
+    icon: HardDrive,
+    title: 'Enhanced Monitoring',
+    description: 'View disk SMART status and pending system updates directly in the node details panel.',
+    color: 'text-amber-400',
+    bgColor: 'bg-amber-400/10'
   },
   {
     icon: Terminal,

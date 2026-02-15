@@ -20,7 +20,7 @@ export function Hero() {
           className="mb-6 border-primary/30 text-primary bg-primary/5 px-3 py-1"
         >
           <Zap className="w-3 h-3 mr-1" />
-          v1.0.16 - Lightning Fast
+          v1.0.18 - Lightning Fast
         </Badge>
         
         {/* Main Title */}
