@@ -1,9 +1,33 @@
+import { useState, useEffect } from 'react'
 import { ArrowDown, Zap, Server, Terminal, Shield, Keyboard, BookOpen } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Link } from 'react-router-dom'
 
 export function Hero() {
+  const [latestVersion, setLatestVersion] = useState<string>('v1.0.18')
+  const [releaseName, setReleaseName] = useState<string>('Lightning Fast')
+
+  useEffect(() => {
+    fetch('https://api.github.com/repos/devnullvoid/pvetui/releases/latest')
+      .then(res => res.json())
+      .then(data => {
+        if (data.tag_name) {
+          setLatestVersion(data.tag_name)
+          // Extract release name if it exists, otherwise default
+          // GitHub releases often have names like "v1.0.18 - Lightning Fast" or just "Lightning Fast"
+          // We'll try to use the name if it differs from the tag
+          if (data.name && data.name !== data.tag_name) {
+             // If name is like "v1.0.18 - Lightning Fast", strip the version
+             const cleanName = data.name.replace(data.tag_name, '').replace(/^[ -]+/, '')
+             if (cleanName) setReleaseName(cleanName)
+             else setReleaseName(data.name)
+          }
+        }
+      })
+      .catch(err => console.error('Failed to fetch latest release:', err))
+  }, [])
+
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ paddingTop: '10rem' }}>
       {/* Background Grid */}
@@ -20,7 +44,7 @@ export function Hero() {
           className="mb-6 border-primary/30 text-primary bg-primary/5 px-3 py-1"
         >
           <Zap className="w-3 h-3 mr-1" />
-          v1.0.18 - Lightning Fast
+          {latestVersion} - {releaseName}
         </Badge>
         
         {/* Main Title */}
