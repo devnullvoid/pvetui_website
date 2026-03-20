@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge'
 import { Link } from 'react-router-dom'
 
 export function Hero() {
-  const [latestVersion, setLatestVersion] = useState<string>('v1.0.18')
+  const [latestVersion, setLatestVersion] = useState<string>('v1.2.1')
 
   useEffect(() => {
     fetch('https://api.github.com/repos/devnullvoid/pvetui/releases/latest')
@@ -46,14 +46,14 @@ export function Hero() {
         
         {/* Subtitle */}
         <p className="text-xl sm:text-2xl text-muted-foreground mb-4 max-w-3xl mx-auto">
-          A Terminal User Interface for{' '}
+          A Terminal User Interface & <span className="text-primary font-semibold">CLI</span> for{' '}
           <span className="text-primary font-semibold">Proxmox Virtual Environment</span>
         </p>
         
         {/* Description */}
         <p className="text-base sm:text-lg text-muted-foreground/80 mb-8 max-w-2xl mx-auto">
-          Manage your Proxmox VE cluster from the comfort of your terminal. 
-          Complete VM, container, and node management with Vim-style navigation.
+          Manage your Proxmox VE cluster from the terminal. 
+          Complete VM, container, and node management with both an interactive TUI and powerful CLI subcommands.
         </p>
         
         {/* Stats */}

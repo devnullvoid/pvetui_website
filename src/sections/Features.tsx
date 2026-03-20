@@ -8,12 +8,15 @@ import {
   Puzzle, 
   Layers,
   Globe,
-  RefreshCw,
   Key,
-  Search,
   Activity,
   HardDrive,
-  Network
+  Network,
+  Command,
+  Database,
+  Play,
+  CheckSquare,
+  History
 } from 'lucide-react'
 
 const features = [
@@ -25,6 +28,13 @@ const features = [
     bgColor: 'bg-yellow-400/10'
   },
   {
+    icon: Command,
+    title: 'CLI Subcommands',
+    description: 'Use pvetui as a non-interactive CLI for scripts and automation. List nodes, guests, and exec commands directly.',
+    color: 'text-blue-400',
+    bgColor: 'bg-blue-400/10'
+  },
+  {
     icon: Activity,
     title: 'Async Task Queue',
     description: 'Non-blocking operations with background processing. Queue multiple actions without UI freezes.',
@@ -34,9 +44,23 @@ const features = [
   {
     icon: Server,
     title: 'Complete Management',
-    description: 'Full control over VMs, containers, nodes, and cluster resources. Start, stop, migrate, and monitor everything from your terminal.',
+    description: 'Full control over VMs, containers, nodes, and cluster resources. Start, stop, migrate, and monitor with ease.',
     color: 'text-primary',
     bgColor: 'bg-primary/10'
+  },
+  {
+    icon: Database,
+    title: 'Storage Management',
+    description: 'First-class storage browser. Manage ISOs, templates, and backups. Download directly from URLs or OCI registries.',
+    color: 'text-orange-400',
+    bgColor: 'bg-orange-400/10'
+  },
+  {
+    icon: Play,
+    title: 'Ansible Integration',
+    description: 'Opt-in plugin to generate inventory from your Proxmox clusters and run playbooks directly from the terminal.',
+    color: 'text-red-400',
+    bgColor: 'bg-red-400/10'
   },
   {
     icon: Layers,
@@ -46,25 +70,25 @@ const features = [
     bgColor: 'bg-cyan-400/10'
   },
   {
-    icon: Network,
-    title: 'SSH Jump Host',
-    description: 'Securely access private Proxmox clusters through a bastion host with native jump host support.',
-    color: 'text-sky-400',
-    bgColor: 'bg-sky-400/10'
+    icon: Globe,
+    title: 'Group Mode',
+    description: 'Combine multiple Proxmox profiles into unified multi-cluster views. Route actions per cluster seamlessly.',
+    color: 'text-teal-400',
+    bgColor: 'bg-teal-400/10'
   },
   {
-    icon: RefreshCw,
-    title: 'Automatic Migration',
-    description: 'Legacy configs automatically migrate to the modern profile-based format. Zero configuration headaches.',
-    color: 'text-blue-400',
-    bgColor: 'bg-blue-400/10'
+    icon: CheckSquare,
+    title: 'Batch Operations',
+    description: 'Multi-select guests and perform lifecycle actions in bulk. Scale your management tasks effortlessly.',
+    color: 'text-indigo-400',
+    bgColor: 'bg-indigo-400/10'
   },
   {
-    icon: Shield,
-    title: 'Secure Authentication',
-    description: 'API tokens or password-based auth with automatic renewal. Built-in support for encrypted configurations with SOPS.',
-    color: 'text-green-400',
-    bgColor: 'bg-green-400/10'
+    icon: History,
+    title: 'Backup & Restore',
+    description: 'Comprehensive backup management. Create, delete, and restore backups for VMs and containers with task tracking.',
+    color: 'text-violet-400',
+    bgColor: 'bg-violet-400/10'
   },
   {
     icon: HardDrive,
@@ -72,6 +96,20 @@ const features = [
     description: 'View disk SMART status and pending system updates directly in the node details panel.',
     color: 'text-amber-400',
     bgColor: 'bg-amber-400/10'
+  },
+  {
+    icon: Network,
+    title: 'SSH Jump Host',
+    description: 'Securely access private Proxmox clusters through a bastion host with native jump host support.',
+    color: 'text-sky-400',
+    bgColor: 'bg-sky-400/10'
+  },
+  {
+    icon: Shield,
+    title: 'Secure Authentication',
+    description: 'API tokens or password-based auth with auto-encryption. Built-in support for encrypted configs with SOPS.',
+    color: 'text-green-400',
+    bgColor: 'bg-green-400/10'
   },
   {
     icon: Terminal,
@@ -107,20 +145,6 @@ const features = [
     description: 'Automatic adaptation to terminal emulator color schemes. Full semantic theming support.',
     color: 'text-indigo-400',
     bgColor: 'bg-indigo-400/10'
-  },
-  {
-    icon: Globe,
-    title: 'Group Mode',
-    description: 'Combine multiple Proxmox profiles into unified multi-cluster views. Route actions per cluster seamlessly.',
-    color: 'text-teal-400',
-    bgColor: 'bg-teal-400/10'
-  },
-  {
-    icon: Search,
-    title: 'Advanced Search',
-    description: 'Quickly find VMs, containers, and nodes with instant search. Filter and sort with ease.',
-    color: 'text-rose-400',
-    bgColor: 'bg-rose-400/10'
   }
 ]
 

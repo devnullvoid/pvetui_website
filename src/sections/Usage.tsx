@@ -1,14 +1,17 @@
 import { useState } from 'react'
-import { Keyboard, Settings, Flag, Info, Power, Search, RefreshCw, Globe, Monitor, HelpCircle } from 'lucide-react'
+import { Keyboard, Settings, Flag, Info, Power, Search, RefreshCw, Globe, Monitor, HelpCircle, Terminal } from 'lucide-react'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 
 const keyBindings = [
   { key: 'h/j/k/l', action: 'Navigate (Vim-style)', category: 'Navigation' },
   { key: '↑↓←→', action: 'Arrow key navigation', category: 'Navigation' },
   { key: 'Enter', action: 'Select/Confirm', category: 'Navigation' },
-  { key: 'Alt+1/2/3', action: 'Switch views', category: 'Navigation' },
+  { key: 'Alt+1/2/3/4', action: 'Switch views (4: Storage)', category: 'Navigation' },
   { key: '[]', action: 'Previous/Next view', category: 'Navigation' },
-  { key: '/', action: 'Search', category: 'Actions' },
+  { key: 'Space', action: 'Multi-select guests', category: 'Navigation' },
+  { key: 'gg/G', action: 'Jump to top/bottom', category: 'Navigation' },
+  { key: '/', action: 'Quick Search', category: 'Actions' },
+  { key: 'Ctrl+F', action: 'Advanced Filter', category: 'Actions' },
   { key: 's', action: 'SSH Shell', category: 'Actions' },
   { key: 'v', action: 'VNC Console', category: 'Actions' },
   { key: 'm', action: 'Context Menu', category: 'Actions' },
@@ -17,6 +20,17 @@ const keyBindings = [
   { key: '?', action: 'Help', category: 'System' },
   { key: 'q', action: 'Quit', category: 'System' },
   { key: 'Ctrl+C', action: 'Cancel/Exit', category: 'System' },
+]
+
+const subcommands = [
+  { cmd: 'nodes list', desc: 'List all cluster nodes with metrics' },
+  { cmd: 'nodes show <node>', desc: 'Detailed view of a single node' },
+  { cmd: 'guests list', desc: 'List all VMs and LXC containers' },
+  { cmd: 'guests show <vmid>', desc: 'Detailed view of a single guest' },
+  { cmd: 'guests start <vmid>', desc: 'Start a VM or container' },
+  { cmd: 'guests stop <vmid>', desc: 'Stop a VM or container' },
+  { cmd: 'guests exec <vmid> <cmd>', desc: 'Execute command in guest' },
+  { cmd: 'tasks list', desc: 'List recent cluster tasks' },
 ]
 
 const groupedBindings = {
@@ -90,6 +104,10 @@ export function Usage() {
             <TabsTrigger value="commands" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <Flag className="w-4 h-4 mr-2" />
               Command Line
+            </TabsTrigger>
+            <TabsTrigger value="cli" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+              <Terminal className="w-4 h-4 mr-2" />
+              CLI Mode
             </TabsTrigger>
             <TabsTrigger value="env" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                   <Settings className="w-4 h-4 mr-2" />
@@ -205,6 +223,57 @@ export function Usage() {
                       ))}
                     </tbody>
                   </table>
+                </div>
+              </div>
+            </div>
+          </TabsContent>
+          
+          {/* CLI Mode Tab */}
+          <TabsContent value="cli">
+            <div className="terminal-window">
+              <div className="terminal-header">
+                <div className="flex gap-2">
+                  <div className="terminal-dot bg-red-500" />
+                  <div className="terminal-dot bg-yellow-500" />
+                  <div className="terminal-dot bg-green-500" />
+                </div>
+                <span className="text-xs text-muted-foreground ml-4">Non-Interactive CLI Subcommands</span>
+              </div>
+              <div className="terminal-content">
+                <p className="text-muted-foreground mb-4">
+                  pvetui can be used in non-interactive mode for scripts and automation. 
+                  Subcommands bypass the TUI and output structured data.
+                </p>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-border">
+                        <th className="text-left py-3 pr-4 font-semibold text-foreground">Subcommand</th>
+                        <th className="text-left py-3 pr-4 font-semibold text-foreground">Description</th>
+                        <th className="text-left py-3 font-semibold text-foreground">Example</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {subcommands.map((cmd, index) => (
+                        <tr key={index} className="border-b border-border/50">
+                          <td className="py-3 pr-4 font-mono text-cyan-400">pvetui {cmd.cmd}</td>
+                          <td className="py-3 pr-4 text-muted-foreground">{cmd.desc}</td>
+                          <td className="py-3 font-mono text-xs text-foreground">pvetui {cmd.cmd.replace('<vmid>', '100').replace('<node>', 'pve1').replace('<cmd>', 'uptime')}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <div className="mt-6 p-4 bg-primary/5 border border-primary/20 rounded-md">
+                  <h4 className="text-sm font-semibold text-primary mb-2 flex items-center gap-2">
+                    <Info className="w-4 h-4" />
+                    CLI Tips
+                  </h4>
+                  <ul className="text-xs text-muted-foreground space-y-2">
+                    <li>• Use <span className="text-cyan-400 font-mono">--output=json</span> (default) or <span className="text-cyan-400 font-mono">--output=table</span> for human-readable output.</li>
+                    <li>• Subcommands respect all global flags like <span className="text-cyan-400 font-mono">--profile</span> and <span className="text-cyan-400 font-mono">--config</span>.</li>
+                    <li>• Exit codes are non-zero on failure, and errors are written as JSON to stderr.</li>
+                  </ul>
                 </div>
               </div>
             </div>

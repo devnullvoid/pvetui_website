@@ -246,7 +246,7 @@ export function Footer() {
             </button>
           </div>
           <div className="text-sm text-muted-foreground text-center md:text-right">
-            <p>© 2025 pvetui. Not affiliated with Proxmox Server Solutions GmbH.</p>
+            <p>© 2026 pvetui. Not affiliated with Proxmox Server Solutions GmbH.</p>
             <p className="mt-1">
               Proxmox® is a registered trademark of Proxmox Server Solutions GmbH.
             </p>

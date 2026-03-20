@@ -1,4 +1,4 @@
-import { Puzzle, Settings, Terminal, Download, Code, Users, FileCode, BookOpen } from 'lucide-react'
+import { Puzzle, Settings, Terminal, Download, Code, Users, FileCode, BookOpen, Play } from 'lucide-react'
 
 const plugins = [
   {
@@ -12,9 +12,19 @@ const plugins = [
     bgColor: 'bg-green-400/10'
   },
   {
+    id: 'ansible',
+    name: 'Ansible Toolkit',
+    description: 'Generate dynamic Ansible inventory from your Proxmox clusters. Run ping tests and playbooks directly from the TUI with integrated form state.',
+    icon: Play,
+    category: 'Automation',
+    enabledByDefault: false,
+    color: 'text-red-400',
+    bgColor: 'bg-red-400/10'
+  },
+  {
     id: 'command-runner',
     name: 'Command Runner',
-    description: 'Execute whitelisted commands on Proxmox hosts via SSH. Requires SSH key setup for authentication. Perfect for automated maintenance tasks.',
+    description: 'Execute whitelisted commands on Proxmox hosts via SSH. Perfect for troubleshooting and quick maintenance tasks across nodes and guests.',
     icon: Terminal,
     category: 'Automation',
     enabledByDefault: false,
@@ -24,7 +34,7 @@ const plugins = [
   {
     id: 'guest-insights',
     name: 'Guest Insights',
-    description: 'Enhanced guest management with full guest insights modal. Features advanced filtering, sorting, and quick jump-to-guest functionality. (Legacy alias: demo-guest-list)',
+    description: 'Enhanced guest management with full guest insights modal. Features advanced filtering, sorting, and quick jump-to-guest functionality.',
     icon: Settings,
     category: 'Management',
     enabledByDefault: false,
@@ -81,7 +91,7 @@ export function Plugins() {
           <h3 className="text-2xl font-bold mb-8 text-center">
             <span className="gradient-text">Built-in Plugins</span>
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
             {plugins.map((plugin) => (
               <div key={plugin.id} className="feature-card group">
                 <div className="flex items-start gap-4 mb-4">
@@ -137,6 +147,7 @@ export function Plugins() {
                   <code>{`plugins:
   enabled:
     - "community-scripts"
+    - "ansible"
     - "command-runner"
     - "guest-insights"`}</code>
                 </pre>
@@ -150,6 +161,17 @@ export function Plugins() {
               <h3 className="text-xl font-semibold">Plugin Requirements</h3>
             </div>
             <div className="space-y-4">
+              <div>
+                <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
+                  <Play className="w-4 h-4 text-red-400" />
+                  Ansible Toolkit
+                </h4>
+                <ul className="text-sm text-muted-foreground space-y-1">
+                  <li>• Ansible must be installed on the local machine</li>
+                  <li>• SSH access configured for target nodes/guests</li>
+                  <li>• Supports YAML and INI inventory generation</li>
+                </ul>
+              </div>
               <div>
                 <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
                   <Users className="w-4 h-4 text-green-400" />
@@ -169,7 +191,6 @@ export function Plugins() {
                 <ul className="text-sm text-muted-foreground space-y-1">
                   <li>• SSH key-based authentication required</li>
                   <li>• Commands must be whitelisted in config</li>
-                  <li>• Configure allowed commands securely</li>
                 </ul>
               </div>
               <div>
@@ -179,8 +200,7 @@ export function Plugins() {
                 </h4>
                 <ul className="text-sm text-muted-foreground space-y-1">
                   <li>• No additional requirements</li>
-                  <li>• Enhanced guest list with filtering</li>
-                  <li>• Quick jump to any guest by name or ID</li>
+                  <li>• Enhanced guest list with advanced filtering</li>
                 </ul>
               </div>
             </div>

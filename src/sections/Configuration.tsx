@@ -37,9 +37,16 @@ const configExample = `profiles:
     groups:
       - all-servers
 
+group_settings:
+  all-servers:
+    mode: "aggregate"                 # Unified view of all clusters
+  ha-cluster:
+    mode: "cluster"                   # HA failover mode
+
 default_profile: "all-servers"         # Can be profile or group name
 debug: false
-show_icons: true                       # Toggle icons/emojis in UI`
+show_icons: true                       # Toggle icons/emojis in UI
+age_dir: "~/.config/pvetui"            # Custom encryption key location`
 
 const profilesExample = `profiles:
   # Home Lab (Default)
@@ -74,22 +81,24 @@ const pluginsExample = `plugins:
   enabled:
     - "community-scripts"    # Community Scripts installer
     - "command-runner"       # Execute whitelisted commands
-    - "guest-insights"       # Guest Insights (filter/sort/jump)`
+    - "guest-insights"       # Guest Insights (filter/sort/jump)
+    - "ansible"              # Ansible Toolkit (inventory & playbooks)`
 
 const groupExample = `profiles:
-  home-server:
-    # ... home server config
-    groups: ["homelab"]
-  
-  work-prod:
-    # ... work production config
+  pve-node-1:
+    # ... node config
     groups: ["production"]
   
-  work-dev:
-    # ... work dev config  
-    groups: ["development"]
+  pve-node-2:
+    # ... node config
+    groups: ["production"]
 
-default_profile: "all-clusters"  # Group name for unified view`
+group_settings:
+  production:
+    mode: "cluster"  # Enable HA Failover mode
+    # "aggregate" is the default (combined view)
+
+default_profile: "production"`
 
 export function Configuration() {
   const [activeTab, setActiveTab] = useState('wizard')
@@ -377,6 +386,10 @@ export function Configuration() {
                     <span className="text-cyan-400 font-mono">guest-insights</span>
                     <span className="block text-xs">Full guest insights modal (filter/sort/jump-to-guest)</span>
                   </li>
+                  <li>
+                    <span className="text-cyan-400 font-mono">ansible</span>
+                    <span className="block text-xs">Generate inventory and run playbooks directly from the TUI</span>
+                  </li>
                 </ul>
               </div>
               <div className="feature-card">
@@ -415,16 +428,20 @@ export function Configuration() {
               <div className="feature-card">
                 <div className="flex items-center gap-3 mb-4">
                   <RefreshCw className="w-6 h-6 text-blue-400" />
-                  <h3 className="text-xl font-semibold">Group Mode (Multi-Cluster)</h3>
+                  <h3 className="text-xl font-semibold">Multi-Cluster Modes</h3>
                 </div>
                 <p className="text-muted-foreground mb-4">
-                  Combine multiple profiles into named groups for unified cluster views:
+                  Groups support two operational modes via <span className="text-cyan-400 font-mono">group_settings</span>:
                 </p>
-                <ul className="text-sm text-muted-foreground space-y-2">
-                  <li>• See combined CPU, memory, storage, and tasks</li>
-                  <li>• View all guests across clusters</li>
-                  <li>• Actions routed to source profile/cluster</li>
-                  <li>• Migration targets limited to VM's own cluster</li>
+                <ul className="text-sm text-muted-foreground space-y-4">
+                  <li>
+                    <span className="text-foreground font-semibold block mb-1">1. Aggregate Mode (Default)</span>
+                    <span className="block text-xs leading-relaxed">Combine multiple independent Proxmox clusters into a single unified view. View metrics and guests across your entire infrastructure.</span>
+                  </li>
+                  <li>
+                    <span className="text-foreground font-semibold block mb-1">2. HA Failover Mode (Cluster)</span>
+                    <span className="block text-xs leading-relaxed">Connect through one active profile and automatically fail over to the next healthy candidate in the group if the current one becomes unavailable.</span>
+                  </li>
                 </ul>
               </div>
               <div className="feature-card">
@@ -448,7 +465,7 @@ export function Configuration() {
                   </Button>
                 </div>
                 <p className="text-sm text-muted-foreground mt-4">
-                  Launch directly into a group: <span className="text-cyan-400 font-mono">pvetui --profile="my-group"</span>
+                  Launch directly into a group: <span className="text-cyan-400 font-mono">pvetui --profile="production"</span>
                 </p>
               </div>
             </div>

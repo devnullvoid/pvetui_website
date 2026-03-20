@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Terminal, Download, Package, Apple, Monitor, Box, Shield } from 'lucide-react'
+import { Terminal, Download, Package, Apple, Monitor, Shield, Layers } from 'lucide-react'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
@@ -13,6 +13,15 @@ const installationMethods = [
     description: 'Recommended for Go users. Requires Go 1.24+',
     command: 'go install github.com/devnullvoid/pvetui/cmd/pvetui@latest',
     note: 'Make sure $GOPATH/bin is in your PATH'
+  },
+  {
+    id: 'nix',
+    label: 'Nix',
+    icon: Layers,
+    title: 'Nix / Flakes',
+    description: 'Run directly or install via Nix Flakes',
+    command: 'nix run github:devnullvoid/pvetui\n# Or add to your configuration.nix',
+    note: 'Supports flakes and automated vendorHash updates'
   },
   {
     id: 'binary',
@@ -37,9 +46,9 @@ const installationMethods = [
     label: 'macOS',
     icon: Apple,
     title: 'macOS (Homebrew)',
-    description: 'Install via Homebrew Cask',
-    command: 'brew install --cask devnullvoid/pvetui/pvetui',
-    note: 'Auto-clones the devnullvoid/homebrew-pvetui tap'
+    description: 'Install via Homebrew',
+    command: 'brew install devnullvoid/pvetui/pvetui',
+    note: 'Available via the devnullvoid/homebrew-pvetui tap'
   },
   {
     id: 'windows',
@@ -49,24 +58,6 @@ const installationMethods = [
     description: 'Install via Scoop package manager',
     command: 'scoop bucket add pvetui https://github.com/devnullvoid/scoop-pvetui\nscoop install pvetui',
     note: 'Add the bucket first, then install'
-  },
-  {
-    id: 'docker',
-    label: 'Docker',
-    icon: Box,
-    title: 'Docker',
-    description: 'Run in a containerized environment',
-    command: 'docker compose run --rm pvetui',
-    note: 'Copy .env.example to .env and configure'
-  },
-  {
-    id: 'source',
-    label: 'Source',
-    icon: Terminal,
-    title: 'Build from Source',
-    description: 'Clone and build the repository',
-    command: 'git clone https://github.com/devnullvoid/pvetui.git\ncd pvetui\nmake install',
-    note: 'Requires Go 1.24+ and make'
   }
 ]
 
